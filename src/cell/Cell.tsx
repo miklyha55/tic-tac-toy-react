@@ -18,10 +18,10 @@ const Cell: React.FC<IROCellCfg> = (props: IROCellCfg) => {
         if(!props.isActive) {
             return;
         }
-        
+
         dispatch(changeState());
         dispatch(setCellType(index));
-    }
+    };
 
     return (
         <div 

@@ -11,7 +11,7 @@ const Grid: React.FC<IROGridCfg> = (props: IROGridCfg) => {
     const wrapperStyle: CSSProperties = {
         width: props.col * props.width,
         height: props.row * props.height,
-    }
+    };
 
     const createCell = () => {
         const cellArray: Array<JSX.Element> = [];
