@@ -1,57 +1,48 @@
 import React, { CSSProperties } from 'react';
-import { IROGridCfg } from './interfaces';
-import config from "../configs/config.json";
+import { IROGridCfg } from '../interfaces';
+import { CLASS_NAMES, OBJECT_TYPES } from '../constants';
 import Cell from '../cell/Cell';
+import '../css/Grid.css';
+import { useAppSelector } from '../store/hook';
 
-export default class Grid extends React.Component {
-    props: IROGridCfg;
-    wrapperStyle: CSSProperties
+const Grid: React.FC<IROGridCfg> = (props: IROGridCfg) => {
+    const cellTypeArray: Array<string> = useAppSelector(state => state.root.cellTypeArray);
 
-    constructor(props: IROGridCfg) {
-        super(props);
-        this.props = props;
-        this.wrapperStyle = {
-            position: "absolute",
-            width: this.props.col * this.props.width,
-            height: this.props.row * this.props.height,
-            margin: "auto",
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-        }
+    const wrapperStyle: CSSProperties = {
+        width: props.col * props.width,
+        height: props.row * props.height,
     }
 
-    render() {
-        return this.createCell();
-    }
-
-    private createCell() {
+    const createCell = () => {
         const cellArray: Array<JSX.Element> = [];
         let index: number = 0;
 
-        for (let col = 0; col < this.props.col; col++) {
-            for (let row = 0; row < this.props.row; row++) {
+        for (let col = 0; col < props.col; col++) {
+            for (let row = 0; row < props.row; row++) {
                 cellArray.push(<Cell
-                    key={index}
-                    x = {row * this.props.width}
-                    y = {col * this.props.width}
-                    width = {this.props.width}
-                    height = {this.props.height}
-                    borderColor = {config.cell.borderColor}
-                    borderSize = {config.cell.backgroundSize}
-                    color = {config.cell.backgroundColor}
+                    key = {index}
+                    index = {index}
+                    x = {row * props.width}
+                    y = {col * props.width}
+                    width = {props.width}
+                    height = {props.height}
+                    type = {cellTypeArray[index]}
+                    isActive = {cellTypeArray[index] === OBJECT_TYPES.None}
                 ></Cell>);
 
                 index++;
             }
         }
 
-        return (
-            <div className='wrapper' style={this.wrapperStyle}>
+        return(
+            <div className = {CLASS_NAMES.Grid} style={wrapperStyle}>
                 {cellArray}
             </div>
-        )
-    }
-}
+        );
+    };
+    
+    return createCell();
+};
+
+export default Grid;
 

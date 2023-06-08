@@ -1,0 +1,9 @@
+.Cell {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: yellow;
+    border: 2px solid black;
+    font-size: 60px;
+}
