@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IGameStateCfg } from "../interfaces";
-import { OBJECT_TYPES } from "../constants";
+import { OBJECT_TYPES, WINNER_TYPES } from "../constants";
 import config from "../configs/config.json";
 
 const containArray = () => {
@@ -15,6 +15,7 @@ const containArray = () => {
 
 const initialState: IGameStateCfg = {
     isPlayer: false,
+    winnerType: WINNER_TYPES.None,
     cellTypeArray: containArray(),
 };
 
@@ -22,17 +23,18 @@ const rootSlice = createSlice({
     name: "root",
     initialState,
     reducers: {
-        changeState(state, action: PayloadAction) {
-            state.isPlayer = !state.isPlayer;
-        },
-
         setCellType(state, action: PayloadAction<number>) {
+            state.isPlayer = !state.isPlayer;
             state.cellTypeArray[action.payload] =
                 state.isPlayer ? OBJECT_TYPES.Cross : OBJECT_TYPES.Zero;
         },
-    }
+
+        setWinnerType(state, action: PayloadAction<number>) {
+            state.winnerType = action.payload;
+        },
+    },
 });
 
-export const { changeState, setCellType } = rootSlice.actions;
+export const { setCellType, setWinnerType } = rootSlice.actions;
 export default rootSlice.reducer;
 

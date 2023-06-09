@@ -18,4 +18,5 @@ export interface IROCellCfg {
 export interface IGameStateCfg {
     isPlayer: boolean;
     cellTypeArray: Array<string>;
+    winnerType: number;
 }

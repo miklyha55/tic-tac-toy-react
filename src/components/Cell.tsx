@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react';
 import { IROCellCfg } from '../interfaces';
 import { CLASS_NAMES } from '../constants';
 import { useAppDispatch } from '../store/hook';
-import { changeState, setCellType } from '../store/rootSlice';
+import { setCellType } from '../store/rootSlice';
 import '../css/Cell.css';
 
 const Cell: React.FC<IROCellCfg> = (props: IROCellCfg) => {
@@ -19,7 +19,6 @@ const Cell: React.FC<IROCellCfg> = (props: IROCellCfg) => {
             return;
         }
 
-        dispatch(changeState());
         dispatch(setCellType(index));
     };
 
